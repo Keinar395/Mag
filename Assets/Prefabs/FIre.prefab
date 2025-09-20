@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8033507402983644590}
   - component: {fileID: 8147139343708176421}
   - component: {fileID: 6675229086766496171}
-  - component: {fileID: 4454109115538442195}
   - component: {fileID: 248413408849912905}
+  - component: {fileID: 7705162991565255781}
   m_Layer: 0
   m_Name: FIre
   m_TagString: Untagged
@@ -112,18 +112,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4454109115538442195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5416349805531865949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2115ad8c3fd8c54488122d694e4a2c4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &248413408849912905
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -170,3 +158,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.64, y: 1.47}
   m_EdgeRadius: 0
+--- !u!114 &7705162991565255781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5416349805531865949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9d22fb0abf9d4499a244081faad0e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
