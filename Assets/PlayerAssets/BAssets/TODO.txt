@@ -1,0 +1,25 @@
+﻿
+
+
+
+Softbody **
+Movement **
+Jumping **
+
+Connecting 
+
+MOUSE ILE BAĞLAMA EKLE
+
+
+FACES
+Player:
+-Sad (single)
+-Pozitive,Normal (connected)
+-Scared (jumping or falling)
+-Excited (Finished)
+
+Other:
+-Dead (not connected)
+-Pozitive,Normal (connected)
+-Scared (jumping or falling)
+-Excited (Finished)
