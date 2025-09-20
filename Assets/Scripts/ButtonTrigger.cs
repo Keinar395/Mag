@@ -4,7 +4,7 @@ public class ButtonTrigger : MonoBehaviour
 {
     public Door door;
     public Animator buttonAnimator;
-    public float autoCloseDelay = 3f;
+    public float autoCloseDelay = 6f;
 
     private bool isPressed = false;
 

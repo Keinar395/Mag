@@ -2,17 +2,14 @@ using UnityEngine;
 
 public class Spike : MonoBehaviour
 {
-    // Ýlk görünmez olma veya görünür olma döngüsünün baþlamasý için gecikme
     public float initialDelay = 3f;
-
-    // Þelalenin her 3 saniyede bir durum deðiþtirmesini saðlayacak süre
     public float repeatRate = 3f;
+    public float knockbackForce = 10f; // Geri tepme kuvveti
 
     private bool isVisible = true;
 
     private void Start()
     {
-        // 'ToggleSpike' fonksiyonunu 3 saniye sonra baþlat ve her 3 saniyede bir tekrarla
         InvokeRepeating(nameof(ToggleSpike), initialDelay, repeatRate);
     }
 
@@ -20,37 +17,44 @@ public class Spike : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Eðer þelale görünürse oyuncuya hasar ver
+            // Eï¿½er ï¿½elale gï¿½rï¿½nï¿½rse oyuncuya hasar ver ve geri tepme uygula
             if (isVisible)
             {
-                Debug.Log("Oyuncu þelaleye çarptý ve hasar aldý!");
+                Debug.Log("Oyuncu ï¿½elaleye ï¿½arptï¿½ ve hasar aldï¿½!");
+                ApplyKnockback(other.transform);
             }
             else
             {
-                Debug.Log("Þelale görünmez olduðu için oyuncu hasar almadý.");
+                Debug.Log("ï¿½elale gï¿½rï¿½nmez olduï¿½u iï¿½in oyuncu hasar almadï¿½.");
             }
+        }
+    }
+
+    private void ApplyKnockback(Transform player)
+    {
+        Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
+        if (playerRb != null)
+        {
+            // Oyuncuyu ï¿½elalenin tersi yï¿½nde it
+            Vector2 knockbackDirection = (player.position - transform.position).normalized;
+            playerRb.linearVelocity = Vector2.zero;
+            playerRb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
         }
     }
 
     private void ToggleSpike()
     {
-        // Þelalenin görünürlüðünü tersine çevir
         isVisible = !isVisible;
-
-        // Þelale objesinin görselini ve collider'ýný devre dýþý býrak/etkinleþtir
-        // Bu kýsým, þelalenin nasýl oluþturulduðuna baðlý olarak deðiþebilir.
-        // Genellikle sprite veya mesh renderer ve collider component'i kullanýlýr.
         GetComponent<SpriteRenderer>().enabled = isVisible;
         GetComponent<Collider2D>().enabled = isVisible;
 
-        // Konsola bilgi mesajý yazdýr
         if (isVisible)
         {
-            Debug.Log("Þelale þimdi görünür.");
+            Debug.Log("ï¿½elale ï¿½imdi gï¿½rï¿½nï¿½r.");
         }
         else
         {
-            Debug.Log("Þelale þimdi kayboldu.");
+            Debug.Log("ï¿½elale ï¿½imdi kayboldu.");
         }
     }
 }
