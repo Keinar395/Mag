@@ -2,31 +2,62 @@ using UnityEngine;
 
 public class Spike : MonoBehaviour
 {
-    public float initialDelay = 3f;
-    public float repeatRate = 3f;
-    public float knockbackForce = 10f; // Geri tepme kuvveti
+    public Transform openPosition; // Şelalenin gideceği üst pozisyon
+    public float speed = 2f; // Şelalenin hareket hızı
+    public float waitTime = 3f; // En üstte veya en altta bekleyeceği süre
 
-    private bool isVisible = true;
+    private Vector3 closedPosition;
+    private bool isMovingUp = true;
+    private float waitTimer;
+
+    public float knockbackForce = 10f;
 
     private void Start()
     {
-        InvokeRepeating(nameof(ToggleSpike), initialDelay, repeatRate);
+        closedPosition = transform.position; // Başlangıç pozisyonunu kaydet
+        waitTimer = waitTime;
+    }
+
+    private void Update()
+    {
+        if (isMovingUp)
+        {
+            // Şelale yukarı doğru hareket ediyor
+            transform.position = Vector3.MoveTowards(transform.position, openPosition.position, speed * Time.deltaTime);
+
+            // Eğer hedefe ulaştıysa yönü değiştir
+            if (Vector3.Distance(transform.position, openPosition.position) < 0.01f)
+            {
+                isMovingUp = false;
+                waitTimer = waitTime; // Bekleme süresini başlat
+            }
+        }
+        else
+        {
+            // Şelale aşağı doğru hareket ediyor
+            transform.position = Vector3.MoveTowards(transform.position, closedPosition, speed * Time.deltaTime);
+
+            // Eğer hedefe ulaştıysa yönü değiştir
+            if (Vector3.Distance(transform.position, closedPosition) < 0.01f)
+            {
+                isMovingUp = true;
+                waitTimer = waitTime; // Bekleme süresini başlat
+            }
+        }
+
+        // Bekleme süresini yönet
+        if (waitTimer > 0)
+        {
+            waitTimer -= Time.deltaTime;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            // E�er �elale g�r�n�rse oyuncuya hasar ver ve geri tepme uygula
-            if (isVisible)
-            {
-                Debug.Log("Oyuncu �elaleye �arpt� ve hasar ald�!");
-                ApplyKnockback(other.transform);
-            }
-            else
-            {
-                Debug.Log("�elale g�r�nmez oldu�u i�in oyuncu hasar almad�.");
-            }
+            Debug.Log("Oyuncu şelaleye çarptı ve hasar aldı!");
+            ApplyKnockback(other.transform);
         }
     }
 
@@ -35,26 +66,9 @@ public class Spike : MonoBehaviour
         Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
         if (playerRb != null)
         {
-            // Oyuncuyu �elalenin tersi y�nde it
             Vector2 knockbackDirection = (player.position - transform.position).normalized;
             playerRb.linearVelocity = Vector2.zero;
             playerRb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
-        }
-    }
-
-    private void ToggleSpike()
-    {
-        isVisible = !isVisible;
-        GetComponent<SpriteRenderer>().enabled = isVisible;
-        GetComponent<Collider2D>().enabled = isVisible;
-
-        if (isVisible)
-        {
-            Debug.Log("�elale �imdi g�r�n�r.");
-        }
-        else
-        {
-            Debug.Log("�elale �imdi kayboldu.");
         }
     }
 }
