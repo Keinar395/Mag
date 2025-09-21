@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openPosition: {fileID: 1535788254}
-  speed: 20
+  speed: 15
   waitTime: 3
   knockbackForce: 10
 --- !u!212 &93790729
@@ -3243,7 +3243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openPosition: {fileID: 735521613}
-  speed: 20
+  speed: 15
   waitTime: 3
   knockbackForce: 10
 --- !u!212 &1950435515
